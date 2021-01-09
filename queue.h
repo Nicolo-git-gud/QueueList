@@ -14,9 +14,10 @@ struct QueueList {
 
 QueueList *QueueList_new();
 int QueueList_lenght(QueueList *l);
-void  QueueList_delete(QueueList *l);
-void  QueueList_print(QueueList * l);
+void QueueList_delete(QueueList *l);
+void QueueList_print(QueueList * l);
 void QueueList_pushback(QueueList *l, int x);
+int QueueList_popback(QueueList *l);
 
 
 

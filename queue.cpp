@@ -51,3 +51,32 @@ void QueueList_pushback(QueueList *l, int x){
     l->tail = cur;
     l->lenght++;
 }
+
+int QueueList_popback(QueueList *l){
+  if(l->head==nullptr){
+        std::string err = "lista vuota";
+        throw err;
+    }
+    
+    if(l->lenght==1){
+        int value = l->head->value;
+        Cell *unico = l->head;
+        l->head = nullptr;
+        l->tail = nullptr;
+        delete unico;
+        l->lenght--;
+        return value;
+    }
+    Cell *prev = l->head;
+    Cell *cur = l->head;
+    while(cur->next != nullptr){
+        prev = cur;
+        cur = cur->next;
+    }
+    int value = cur -> value;
+    l->tail = prev;
+    prev -> next = nullptr;
+    delete cur;
+    l->lenght--;
+    return value;
+}
