@@ -151,7 +151,7 @@ QueueList *QueueList_Merge(QueueList *A, QueueList *B){
             current=aux;
         }
         Mergiato->lenght = B->lenght;
-        Mergiato->tail = B->tail;
+          Mergiato->tail = current;
         return Mergiato;
         
     }
@@ -172,7 +172,7 @@ QueueList *QueueList_Merge(QueueList *A, QueueList *B){
         }
         if(B->head==nullptr){
             Mergiato -> lenght = A->lenght; 
-            Mergiato->tail= A->tail;
+             Mergiato->tail = current;
         return Mergiato;
         }
         merge=B->head;
@@ -189,7 +189,7 @@ QueueList *QueueList_Merge(QueueList *A, QueueList *B){
         }
     } 
     Mergiato->lenght = A->lenght + B->lenght;
-    Mergiato->tail= B->tail;
+     Mergiato->tail = current;
     return Mergiato;
 }
 
@@ -229,3 +229,38 @@ void QueueList_recoursive_print(QueueList *l){
     rec_print_cell(c);
     
 }
+QueueList * QueueList_from_array(int a[], int c){
+    QueueList *l= QueueList_new();
+    if (c==0)
+        return l;
+    Cell *Cur = new Cell;
+    Cur -> value = a[0];
+    Cur -> next=nullptr;
+    l -> head = Cur;
+    for (int i=1; i < c; i++){
+        Cell *aux  =  new Cell;
+        aux -> value = a[i];
+        aux -> next = nullptr;
+        Cur -> next = aux;
+        Cur = aux;
+        l->tail = aux;
+    }
+    l -> lenght = c;
+
+    return l;
+}
+int * array_from_list(QueueList *l){
+   if(l->head==nullptr){
+       int *b=new int[0];
+       return b;
+   }
+    int n = l-> lenght;
+    int *b = new int[n];
+    Cell *cur = l-> head;
+    for(int i=0;i<n;i++){
+        b[i] = cur-> value;
+        cur = cur->next;
+    }
+    return b;
+}
+
