@@ -80,3 +80,152 @@ int QueueList_popback(QueueList *l){
     l->lenght--;
     return value;
 }
+int QueueList_popfront(QueueList *l){
+    if(l->head==nullptr){
+        std::string err = "lista vuota";
+        throw err;
+    }
+
+    Cell *cur = l->head;
+    int value = cur -> value;
+    l->head = l->head->next;
+    delete cur;
+    l->lenght--;
+    return value;
+}
+
+
+void QueueList_pushfront(QueueList *l,int v){
+    Cell *aux = new Cell;
+    aux->value = v;
+    aux->next = l->head;
+    l->head = aux;
+    l->lenght ++;
+}
+
+QueueList *QueueList_copy (QueueList *l){
+    if (l->head==nullptr){
+        QueueList *b=QueueList_new();
+        return b;
+    }
+    QueueList *b = QueueList_new();
+    Cell *copia = l->head;
+    Cell *current = new Cell;
+    current->value = l->head->value;
+    current->next = nullptr;
+    b->head = current;
+    copia = copia->next;
+    while(copia != nullptr){
+        
+        Cell *Aux = new Cell;
+        Aux->value = copia->value;
+        Aux->next = nullptr;
+        current->next = Aux;
+        current = Aux;
+        copia = copia->next;
+    }
+    b->lenght = l->lenght;
+    b->tail = l->tail;
+    return b;
+}
+
+
+QueueList *QueueList_Merge(QueueList *A, QueueList *B){
+    QueueList *Mergiato= QueueList_new();
+    if(A->head==nullptr && B->head==nullptr)
+        return Mergiato;
+    if(A->head==nullptr)
+    {
+        Cell *merge=B->head;
+        Cell *current=new Cell;
+        current->value=merge->value;
+        current->next=nullptr;
+        merge=merge->next;
+        Mergiato->head=current;
+        while(merge!=nullptr){
+            Cell *aux=new Cell;
+            aux->value=merge->value;
+            aux->next=nullptr;
+            merge=merge->next;
+            current->next=aux;
+            current=aux;
+        }
+        Mergiato->lenght = B->lenght;
+        Mergiato->tail = B->tail;
+        return Mergiato;
+        
+    }
+    else{
+        Cell *merge=A->head;
+        Cell *current=new Cell;
+        current->value=merge->value;
+        current->next=nullptr;
+        merge=merge->next;
+        Mergiato->head=current;
+        while(merge!=nullptr){
+            Cell *aux=new Cell;
+            aux->value=merge->value;
+            aux->next=nullptr;
+            merge=merge->next;
+            current->next=aux;
+            current=aux;
+        }
+        if(B->head==nullptr){
+            Mergiato -> lenght = A->lenght; 
+            Mergiato->tail= A->tail;
+        return Mergiato;
+        }
+        merge=B->head;
+        while(current->next!=nullptr)
+            current=current->next;
+        current->next=B->head;
+        while(merge!=nullptr){
+            Cell *aux=new Cell;
+            aux->value = merge->value;
+            aux->next=nullptr;
+            merge = merge->next;
+            current->next = aux;
+            current = aux;
+        }
+    } 
+    Mergiato->lenght = A->lenght + B->lenght;
+    Mergiato->tail= B->tail;
+    return Mergiato;
+}
+
+void reverse_print_cell(Cell *c){
+    if (c -> next == nullptr)
+        return;
+    
+    c = c -> next;
+    reverse_print_cell(c);
+    std::cout << c-> value << std::endl;
+    
+}  
+
+void rec_print_cell(Cell *c){
+    if (c -> next == nullptr)
+        return;
+    
+    c = c -> next;
+    std::cout << c-> value << std::endl;
+    rec_print_cell(c);
+    
+    
+}  
+void QueueList_reverse_print(QueueList *l){
+    Cell *c = l-> head;
+    if(l -> head == nullptr)
+        return;
+    
+    reverse_print_cell(c);
+    std::cout << c -> value << std::endl;
+}
+void QueueList_recoursive_print(QueueList *l){
+    Cell *c = l-> head;
+    if(l -> head == nullptr)
+        return;
+    std::cout << c -> value << std::endl;
+    rec_print_cell(c);
+    
+}
