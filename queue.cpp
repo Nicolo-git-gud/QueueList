@@ -136,19 +136,19 @@ QueueList *QueueList_Merge(QueueList *A, QueueList *B){
         return Mergiato;
     if(A->head==nullptr)
     {
-        Cell *merge=B->head;
-        Cell *current=new Cell;
-        current->value=merge->value;
-        current->next=nullptr;
-        merge=merge->next;
-        Mergiato->head=current;
+        Cell *merge = B->head;
+        Cell *current = new Cell;
+        current->value = merge->value;
+        current->next = nullptr;
+        merge = merge->next;
+        Mergiato->head = current;
         while(merge!=nullptr){
-            Cell *aux=new Cell;
-            aux->value=merge->value;
-            aux->next=nullptr;
-            merge=merge->next;
-            current->next=aux;
-            current=aux;
+            Cell *aux = new Cell;
+            aux->value = merge->value;
+            aux->next = nullptr;
+            merge = merge->next;
+            current->next = aux;
+            current = aux;
         }
         Mergiato->lenght = B->lenght;
           Mergiato->tail = current;
@@ -156,33 +156,33 @@ QueueList *QueueList_Merge(QueueList *A, QueueList *B){
         
     }
     else{
-        Cell *merge=A->head;
-        Cell *current=new Cell;
-        current->value=merge->value;
-        current->next=nullptr;
-        merge=merge->next;
-        Mergiato->head=current;
+        Cell *merge = A->head;
+        Cell *current = new Cell;
+        current->value = merge->value;
+        current->next = nullptr;
+        merge = merge->next;
+        Mergiato->head = current;
         while(merge!=nullptr){
-            Cell *aux=new Cell;
-            aux->value=merge->value;
-            aux->next=nullptr;
-            merge=merge->next;
-            current->next=aux;
-            current=aux;
+            Cell *aux = new Cell;
+            aux->value = merge->value;
+            aux->next = nullptr;
+            merge = merge->next;
+            current->next = aux;
+            current = aux;
         }
         if(B->head==nullptr){
             Mergiato -> lenght = A->lenght; 
              Mergiato->tail = current;
         return Mergiato;
         }
-        merge=B->head;
+        merge = B->head;
         while(current->next!=nullptr)
-            current=current->next;
-        current->next=B->head;
+            current = current->next;
+        current->next = B->head;
         while(merge!=nullptr){
-            Cell *aux=new Cell;
+            Cell *aux = new Cell;
             aux->value = merge->value;
-            aux->next=nullptr;
+            aux->next = nullptr;
             merge = merge->next;
             current->next = aux;
             current = aux;
