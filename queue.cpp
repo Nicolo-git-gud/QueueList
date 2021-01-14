@@ -22,19 +22,19 @@ void QueueList_delete(QueueList *l){
         l->head=l->head->next;
         delete temp;
     }
-   // l->tail = nullptr;
+    // l->tail = nullptr;
     delete l;
 }
 void  QueueList_print(QueueList *l){
     Cell *aux = l->head;
     while(aux != nullptr){
-    std::cout << aux->value << std::endl;
-    aux = aux->next;
+        std::cout << aux->value << std::endl;
+        aux = aux->next;
     }
 }
 
 void QueueList_pushback(QueueList *l, int x){
-
+    
     if(l->head==nullptr){
         Cell *primo = new Cell;
         primo->value = x;
@@ -53,7 +53,7 @@ void QueueList_pushback(QueueList *l, int x){
 }
 
 int QueueList_popback(QueueList *l){
-  if(l->head==nullptr){
+    if(l->head==nullptr){
         std::string err = "lista vuota";
         throw err;
     }
@@ -85,7 +85,7 @@ int QueueList_popfront(QueueList *l){
         std::string err = "lista vuota";
         throw err;
     }
-
+    
     Cell *cur = l->head;
     int value = cur -> value;
     l->head = l->head->next;
@@ -151,7 +151,7 @@ QueueList *QueueList_Merge(QueueList *A, QueueList *B){
             current = aux;
         }
         Mergiato->lenght = B->lenght;
-          Mergiato->tail = current;
+        Mergiato->tail = current;
         return Mergiato;
         
     }
@@ -172,8 +172,8 @@ QueueList *QueueList_Merge(QueueList *A, QueueList *B){
         }
         if(B->head==nullptr){
             Mergiato -> lenght = A->lenght; 
-             Mergiato->tail = current;
-        return Mergiato;
+            Mergiato->tail = current;
+            return Mergiato;
         }
         merge = B->head;
         while(current->next!=nullptr)
@@ -187,9 +187,9 @@ QueueList *QueueList_Merge(QueueList *A, QueueList *B){
             current->next = aux;
             current = aux;
         }
+        Mergiato->tail = current;
     } 
     Mergiato->lenght = A->lenght + B->lenght;
-     Mergiato->tail = current;
     return Mergiato;
 }
 
@@ -246,14 +246,14 @@ QueueList * QueueList_from_array(int a[], int c){
         l->tail = aux;
     }
     l -> lenght = c;
-
+    
     return l;
 }
 int * array_from_list(QueueList *l){
-   if(l->head==nullptr){
-       int *b=new int[0];
-       return b;
-   }
+    if(l->head==nullptr){
+        int *b=new int[0];
+        return b;
+    }
     int n = l-> lenght;
     int *b = new int[n];
     Cell *cur = l-> head;
@@ -263,4 +263,54 @@ int * array_from_list(QueueList *l){
     }
     return b;
 }
+
+void selectionSort(int arr[], int n)  
+{  
+    int min_idx;  
+    
+    // One by one move boundary of unsorted subarray  
+    for (int i = 0; i < n-1; i++)  
+    {  
+        // Find the minimum element in unsorted array  
+        min_idx = i;  
+        for (int j = i+1; j < n; j++)  
+            if (arr[j] < arr[min_idx])  
+                min_idx = j;  
+            
+            // Swap the found minimum element with the first element  
+            int temp = arr[i];
+        arr[i] = arr[min_idx];
+        arr[min_idx] = temp;
+    }  
+}  
+
+
+
+void QueueList_Sort(QueueList *l){
+    if(l->head==nullptr)
+        return;
+    Cell *scorrimento = l->head;
+    while(scorrimento->next != nullptr){
+        Cell *min = scorrimento;
+        Cell *s2 = scorrimento->next;
+        while(s2 !=nullptr){
+            if(s2->value < min->value)
+                min = s2;
+            s2 = s2->next;
+        }
+        Cell *aux;
+        aux->value = scorrimento->value;
+        scorrimento->value = min->value;
+        min->value = aux-> value;
+        scorrimento = scorrimento->next;
+        
+    }
+}
+
+
+
+
+
+
+
 
